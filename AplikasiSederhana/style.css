@@ -1,0 +1,375 @@
+:root {
+  --bg: #ffffff;
+  --text: #222;
+  --card: #f1f1f1;
+  --accent: #3f51b5;
+  --accent-dark: #2c387e;
+  --red: #f44336;
+  --orange: #ff9800;
+  --green: #4caf50;
+}
+
+body.dark {
+  --bg: #121212;
+  --text: #f5f5f5;
+  --card: #1e1e1e;
+  --accent: #90caf9;
+  --accent-dark: #64b5f6;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  padding: 40px 10px;
+  min-height: 100vh;
+  transition: background 0.3s, color 0.3s;
+}
+
+.todo-container {
+  background-color: var(--card);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 600px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: var(--text);
+}
+
+.input-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.input-group input[type="text"] {
+  flex: 2;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.input-group input[type="datetime-local"] {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+button {
+  padding: 10px 14px;
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background-color: var(--accent-dark);
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  background: var(--bg);
+  margin-bottom: 12px;
+  padding: 12px 16px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  transition: 0.3s;
+}
+
+li.done {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+li .task-main {
+  flex: 1;
+  min-width: 60%;
+}
+
+li .task-deadline {
+  font-size: 12px;
+  color: gray;
+}
+
+li .btns {
+  display: flex;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.deadline-red {
+  border-left: 5px solid var(--red);
+}
+
+.deadline-orange {
+  border-left: 5px solid var(--orange);
+}
+
+.deadline-green {
+  border-left: 5px solid var(--green);
+}
+
+@media (max-width: 480px) {
+  .input-group {
+    flex-direction: column;
+  }
+  .btns {
+    margin-top: 10px;
+    justify-content: flex-end;
+    width: 100%;
+  }
+}
+/* Animasi fade masuk dan keluar */
+li {
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+li.removing {
+  animation: fadeOut 0.3s ease forwards;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateY(20px);
+    height: 0;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+/* Hover efek tombol */
+button:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s;
+}
+/* Animasi masuk halaman */
+.todo-container {
+  animation: slideInFade 0.6s ease;
+}
+
+@keyframes slideInFade {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Fade in + slide up tugas baru */
+li {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hapus tugas: slide out & shrink */
+li.removing {
+  animation: fadeOutDown 0.4s ease forwards;
+}
+
+@keyframes fadeOutDown {
+  to {
+    opacity: 0;
+    transform: translateY(20px) scaleY(0.5);
+    height: 0;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+/* Animasi ketika tugas dicentang */
+li.done {
+  transition: all 0.4s ease;
+  background-color: rgba(76, 175, 80, 0.1); /* Hijau muda */
+  transform: scale(0.98);
+}
+
+/* Tombol hover efek */
+button {
+  transition: background 0.3s, transform 0.2s;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+/* Input animasi fokus */
+input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 5px var(--accent);
+  transition: 0.3s ease;
+}
+li.done {
+  animation: checkBounce 0.4s ease;
+  background-color: rgba(76, 175, 80, 0.15);
+  transform: scale(1.03);
+}
+
+@keyframes checkBounce {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1.03); }
+}
+.deadline-red {
+  border-left: 5px solid var(--red);
+  animation: blinkRed 1s ease-in-out infinite;
+}
+
+@keyframes blinkRed {
+  0%, 100% { border-color: var(--red); }
+  50% { border-color: transparent; }
+}
+li:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
+  transition: 0.3s ease;
+}
+button:active {
+  transform: scale(0.95);
+}
+input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 8px var(--accent);
+  transition: box-shadow 0.3s ease;
+}
+.popup {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100%);
+  background: var(--accent);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  opacity: 0;
+  font-size: 14px;
+  transition: all 0.5s ease;
+  z-index: 1000;
+}
+
+.popup.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+body {
+  opacity: 1;
+  transition: none;
+}
+body {
+  opacity: 1;
+  transition: none;
+}
+body {
+  background: linear-gradient(-45deg, #3f51b5, #00bcd4, #009688, #673ab7);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  transition: background 0.3s;
+}
+
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+.background-bubbles {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1;
+  top: 0;
+  left: 0;
+}
+
+.background-bubbles::before, .background-bubbles::after {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 80%);
+  animation: moveBubbles 30s linear infinite;
+}
+
+.background-bubbles::after {
+  animation-delay: 15s;
+}
+
+@keyframes moveBubbles {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-50%, -50%);
+  }
+}
+#particles-js {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -10;
+  width: 100%;
+  height: 100%;
+}
